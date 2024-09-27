@@ -5,24 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet" />
     <link rel="stylesheet" href="styles.css">
+
 </head>
 
 <body>
     <div class="weather-app">
         <header>
-            <form class="search-form">
-                <input type="search" placeholder="Enter a city..." required />
+            <form class="search-form" id="search-form">
+                <input type="search" placeholder="Enter a city..." required id="search-form-input" />
                 <input type="submit" value="search" class="search-form-button">
             </form>
         </header>
         <main>
             <div class="weather-app-data">
-                <h1 class="weather-app-city">City Name</h1>
+                <h1 class="weather-app-city" id="city">City Name</h1>
                 <p class="weather-app-details">
                     Day HH:MM, conditions
                     <br />
-                    Humidity: %, Wind: km/h
+                    Humidity:<strong>%</strong> , Wind: <strong>km/h</strong>
                 </p>
             </div>
             <div class="weather-app-temperature-container">
@@ -37,6 +43,7 @@
                 href="https://app.netlify.com">Netlify</a>
         </footer>
     </div>
+    <script src="script.js"></script>
 </body>
 
 </html>
