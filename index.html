@@ -10,6 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 
 </head>
@@ -17,20 +18,24 @@
 <body>
     <div class="weather-app">
         <header>
+            <!--Search Form-->
             <form class="search-form" id="search-form">
                 <input type="search" placeholder="Enter a city..." required id="search-form-input" />
                 <input type="submit" value="search" class="search-form-button">
             </form>
         </header>
         <main>
+            <!--City-->
             <div class="weather-app-data">
                 <h1 class="weather-app-city" id="city">City Name</h1>
+                <!--Details-->
                 <p class="weather-app-details">
                     Day HH:MM, conditions
                     <br />
                     Humidity:<strong>%</strong> , Wind: <strong>km/h</strong>
                 </p>
             </div>
+            <!--Icon and Temperature-->
             <div class="weather-app-temperature-container">
                 <div class="weather-app-icon"> 🌤️</div>
                 <div class="weather-app-temperature">Temp</div>
