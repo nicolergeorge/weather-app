@@ -1,0 +1,12 @@
+body {
+    background-color: lightgrey;
+}
+
+.weather-app {
+    background: lavender;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+    box-shadow: 0 30px 50px rgba(65, 50, 100, 0.08);
+    border-radios: 20px;
+}
