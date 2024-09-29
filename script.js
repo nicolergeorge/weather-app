@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Function to refresh the weather information on the page
     function refreshWeather(response, units) {
         let temperatureElement = document.querySelector("#temperature");
         let cityElement = document.querySelector("#city");
@@ -7,52 +6,30 @@ document.addEventListener("DOMContentLoaded", function () {
         let humidityElement = document.querySelector("#humidity");
         let windSpeedElement = document.querySelector("#wind-speed");
         let timeElement = document.querySelector("#time");
-        let iconElement = document.querySelector("#icon");
+        let iconElement = document.querySelector("#icon-image");
 
-        // Log which elements are missing
-        if (!temperatureElement) console.error("Missing #temperature");
-        if (!cityElement) console.error("Missing #city");
-        if (!descriptionElement) console.error("Missing #description");
-        if (!humidityElement) console.error("Missing #humidity");
-        if (!windSpeedElement) console.error("Missing #wind-speed");
-        if (!timeElement) console.error("Missing #time");
-        if (!iconElement) console.error("Missing #icon");
-
-        // Exit the function if any element is missing
         if (!temperatureElement || !cityElement || !descriptionElement || !humidityElement || !windSpeedElement || !timeElement || !iconElement) {
+            console.error("Missing elements for displaying weather data.");
             return;
         }
 
-        // Convert Unix timestamp to date object
-        let date = new Date(response.time * 1000);
+        let date = new Date(response.daily[0].time * 1000);
 
-        // Update the city, description, humidity, and time
         cityElement.innerHTML = response.city;
-        descriptionElement.innerHTML = response.condition.description;
-        humidityElement.innerHTML = `${response.temperature.humidity}%`;
-
-        // Update wind speed and temperature based on the selected units
-        if (units === "metric") {
-            windSpeedElement.innerHTML = `${Math.round(response.wind.speed)} km/h`;
-            temperatureElement.innerHTML = `${Math.round(response.temperature.current)} °C`;
-        } else {
-            windSpeedElement.innerHTML = `${Math.round(response.wind.speed / 1.609)} mph`;
-            temperatureElement.innerHTML = `${Math.round(response.temperature.current)} °F`;
-        }
-
-        // Update time and icon
+        descriptionElement.innerHTML = response.daily[0].condition.description;
+        humidityElement.innerHTML = `${response.daily[0].temperature.humidity}%`;
+        temperatureElement.innerHTML = `${Math.round(response.daily[0].temperature.day)} °${units === "metric" ? "C" : "F"}`;
+        windSpeedElement.innerHTML = `${Math.round(response.daily[0].wind.speed)} ${units === "metric" ? "km/h" : "mph"}`;
         timeElement.innerHTML = formatDate(date);
-        iconElement.innerHTML = `<img src="${response.condition.icon_url}" alt="Weather Icon" />`;
+        iconElement.src = response.daily[0].condition.icon_url;
     }
 
-    // Function to format the date and time into a readable format
     function formatDate(date) {
         let minutes = date.getMinutes();
         let hours = date.getHours();
         let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         let day = days[date.getDay()];
 
-        // Add leading zero to minutes if needed
         if (minutes < 10) {
             minutes = `0${minutes}`;
         }
@@ -60,35 +37,53 @@ document.addEventListener("DOMContentLoaded", function () {
         return `${day} ${hours}:${minutes}`;
     }
 
-    // Function to search for the city's weather using the SheCodes API
     function searchCity(city, units = "imperial") {
-        let apiKey = "b2a5adcct04b33178913oc335f405433"; // Your SheCodes API key
-        let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=${units}`; // API URL
+        let apiKey = "b2a5adcct04b33178913oc335f405433";
+        let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=${units}`;
 
-        // Fetch weather data using axios and call refreshWeather with the response data
         axios.get(apiUrl).then((response) => {
-            console.log(response.data); // Log API response to check if data is coming in as expected
             refreshWeather(response.data, units);
+            displayForecast(response.data, units);
         }).catch(error => {
             console.error("Error fetching weather data:", error);
         });
     }
 
-    // Handle form submission, extract the city and selected units, and search for weather data
-    function handleSearchSubmit(event) {
-        event.preventDefault(); // Prevent form from submitting and reloading the page
+    function displayForecast(response, units) {
+        let forecastHtml = "";
+        let forecastContainer = document.querySelector("#forecast");
 
-        let searchInput = document.querySelector("#search-form-input"); // Get the input field for city
-        let unitSelect = document.querySelector("#units"); // Get the dropdown for unit selection
-        let selectedUnits = unitSelect.value; // Get the selected units (imperial or metric)
+        response.daily.slice(1, 6).forEach(function (forecastDay) {
+            let date = new Date(forecastDay.time * 1000);
+            let dayName = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(date);
+            let maxTemp = Math.round(forecastDay.temperature.maximum);
+            let minTemp = Math.round(forecastDay.temperature.minimum);
 
-        searchCity(searchInput.value, selectedUnits); // Call searchCity with the city and selected units
+            forecastHtml += `
+                <div class="weather-forecast-day">
+                    <div class="weather-forecast-date">${dayName}</div>
+                    <div class="weather-forecast-icon"><img src="${forecastDay.condition.icon_url}" alt="Weather Icon" /></div>
+                    <div class="weather-forecast-temperatures">
+                        <strong>${maxTemp}°${units === 'metric' ? 'C' : 'F'}</strong> / ${minTemp}°${units === 'metric' ? 'C' : 'F'}
+                    </div>
+                    <div class="weather-forecast-description">${forecastDay.condition.description}</div>
+                </div>
+            `;
+        });
+
+        forecastContainer.innerHTML = forecastHtml;
     }
 
-    // Add event listener to the form to handle search submission
+    function handleSearchSubmit(event) {
+        event.preventDefault();
+        let searchInput = document.querySelector("#search-form-input");
+        let unitSelect = document.querySelector("#units");
+        let selectedUnits = unitSelect.value;
+        searchCity(searchInput.value, selectedUnits);
+    }
+
     let searchFormElement = document.querySelector("#search-form");
     searchFormElement.addEventListener("submit", handleSearchSubmit);
 
-    // Perform an initial search for a default city, e.g., Tampa
     searchCity("Tampa");
 });

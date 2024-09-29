@@ -37,69 +37,25 @@
                     <h1 class="weather-app-city" id="city">City Name</h1>
                     <p id="time">Day HH:MM</p>
                     <p id="description">Conditions</p>
-                    <p>Humidity: <strong id="humidity">% </strong></p>
-                    <p>Wind: <strong id="wind-speed">mph </strong></p>
+                    <p>Humidity: <strong id="humidity">--%</strong></p>
+                    <p>Wind: <strong id="wind-speed">-- mph</strong></p>
                 </div>
 
                 <!-- Right Section: Icon and Temperature -->
                 <div class="weather-app-temperature-container">
-                    <div class="weather-app-icon" id="icon">🌤️</div>
-                    <div class="weather-app-temperature" id="temperature">Temp</div>
-                    <div class="weather-app-unit"></div>
+                    <div class="weather-app-icon" id="icon">
+                        <!-- Weather Icon Image Will Go Here -->
+                        <img src="https://via.placeholder.com/50" alt="Weather Icon" id="icon-image">
+                    </div>
+                    <div class="weather-app-temperature" id="temperature">--°</div>
                 </div>
             </div>
 
-            <!--Forecast-->
+            <!-- 5-Day Weather Forecast Section -->
             <div class="weather-forecast">
-                <div class="weather-forecast-day">
-                    <div class="weather-forecast-date">Tue</div>
-                    <div class="weather-forecast-icon">🌤️</div>
-                    <div class="weather-forecast-temperatures">
-                        <div class="weather-forecast-temperature">
-                            <strong>15º</strong>
-                        </div>
-                        <div class="weather-forecast-temperature">9º</div>
-                    </div>
-                </div>
-                <div class="weather-forecast-day">
-                    <div class="weather-forecast-date">Wed</div>
-                    <div class="weather-forecast-icon">🌤️</div>
-                    <div class="weather-forecast-temperatures">
-                        <div class="weather-forecast-temperature">
-                            <strong>15º</strong>
-                        </div>
-                        <div class="weather-forecast-temperature">9º</div>
-                    </div>
-                </div>
-                <div class="weather-forecast-day">
-                    <div class="weather-forecast-date">Wed</div>
-                    <div class="weather-forecast-icon">🌤️</div>
-                    <div class="weather-forecast-temperatures">
-                        <div class="weather-forecast-temperature">
-                            <strong>15º</strong>
-                        </div>
-                        <div class="weather-forecast-temperature">9º</div>
-                    </div>
-                </div>
-                <div class="weather-forecast-day">
-                    <div class="weather-forecast-date">Wed</div>
-                    <div class="weather-forecast-icon">🌤️</div>
-                    <div class="weather-forecast-temperatures">
-                        <div class="weather-forecast-temperature">
-                            <strong>15º</strong>
-                        </div>
-                        <div class="weather-forecast-temperature">9º</div>
-                    </div>
-                </div>
-                <div class="weather-forecast-day">
-                    <div class="weather-forecast-date">Wed</div>
-                    <div class="weather-forecast-icon">🌤️</div>
-                    <div class="weather-forecast-temperatures">
-                        <div class="weather-forecast-temperature">
-                            <strong>15º</strong>
-                        </div>
-                        <div class="weather-forecast-temperature">9º</div>
-                    </div>
+                <h2>5-Day Forecast</h2>
+                <div id="forecast">
+                    <!-- Forecast data will be displayed here by JavaScript -->
                 </div>
             </div>
         </main>
@@ -109,6 +65,7 @@
                 href="https://app.netlify.com">Netlify</a>
         </footer>
     </div>
+
     <script src="script.js"></script>
 </body>
 
