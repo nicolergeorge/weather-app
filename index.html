@@ -8,18 +8,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <link rel="stylesheet" href="styles.css">
-
 </head>
 
 <body>
     <div class="weather-app">
         <header>
-            <!-- Search Form -->
             <form class="search-form" id="search-form">
                 <input type="search" placeholder="Enter a city..." required id="search-form-input" />
                 <select id="units">
@@ -29,6 +27,7 @@
                 <input type="submit" value="Search" class="search-form-button">
             </form>
         </header>
+
         <main>
             <!-- City and Weather Data -->
             <div class="weather-app-data">
@@ -43,26 +42,26 @@
 
                 <!-- Right Section: Icon and Temperature -->
                 <div class="weather-app-temperature-container">
-                    <div class="weather-app-icon" id="icon">
-                        <!-- Weather Icon Image Will Go Here -->
-                        <img src="https://via.placeholder.com/50" alt="Weather Icon" id="icon-image">
+                    <div class="weather-app-icon">
+                        <img src="https://via.placeholder.com/100" alt="Weather Icon" id="icon-image">
                     </div>
                     <div class="weather-app-temperature" id="temperature">--°</div>
                 </div>
             </div>
 
-            <!-- 5-Day Weather Forecast Section -->
-            <div class="weather-forecast">
+            <!-- Forecast Section -->
+            <div class="forecast-section">
                 <h2>5-Day Forecast</h2>
-                <div id="forecast">
-                    <!-- Forecast data will be displayed here by JavaScript -->
+                <div class="forecast-cards" id="forecast">
+                    <!-- Forecast cards will be dynamically inserted here -->
                 </div>
             </div>
         </main>
+
         <footer>
-            Created by <a href="https://github.com/nicolergeorge" target="_blank">Nicole George</a> powered by <a
-                href="https://github.com" target="_blank">GitHub</a> hosted by <a
-                href="https://app.netlify.com">Netlify</a>
+            <p>Created by <a href="https://github.com/nicolergeorge" target="_blank">Nicole George</a> powered by <a
+                    href="https://github.com" target="_blank">GitHub</a> hosted by <a
+                    href="https://app.netlify.com">Netlify</a></p>
         </footer>
     </div>
 
